@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIKKUSU | THE VISION</title>
+    <link rel="icon" type="image/jpeg" href="IMG_0767.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@200;300;400;600&family=Noto+Sans+JP:wght@900&display=swap');
+
+        :root {
+            --bg: #050505;
+            --text: #f0f0f0;
+            --accent: #c4a45d;
+            --gray: #1a1a1a;
+            --caution: #ffcc00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            cursor: none; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. CCTV STATIC FILM GRAIN --- */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 999998; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- 2. VISUAL GLITCH EFFECT --- */
+        @keyframes rgb-glitch {
+            0% { transform: translate(0); text-shadow: none; }
+            20% { transform: translate(-2px, 1px); text-shadow: 2px 0px #ff003c, -2px 0px #00eaff; }
+            40% { transform: translate(2px, -1px); text-shadow: -2px 0px #ff003c, 2px 0px #00eaff; }
+            60% { transform: translate(-1px, 2px); text-shadow: 2px 0px #ff003c, -2px 0px #00eaff; }
+            80% { transform: translate(1px, -2px); text-shadow: -2px 0px #ff003c, 2px 0px #00eaff; }
+            100% { transform: translate(0); text-shadow: none; }
+        }
+        .glitch-hover:hover {
+            animation: rgb-glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: var(--text);
+        }
+
+        /* --- 3. CUSTOM DOT CURSOR --- */
+        .custom-cursor {
+            position: fixed; top: 0; left: 0; width: 10px; height: 10px;
+            background: var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 999999;
+            transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background 0.3s;
+            mix-blend-mode: difference;
+        }
+        .custom-cursor.hovered { width: 50px; height: 50px; background: var(--text); }
+        @media (max-width: 900px) { .custom-cursor { display: none; } body { cursor: auto; } }
+
+        /* --- 4. NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 30px 4vw;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; mix-blend-mode: difference;
+        }
+        .nav-logo { font-family: 'Noto Sans JP', sans-serif; font-size: 1.5rem; letter-spacing: 2px; text-decoration: none; color: var(--text); }
+        .nav-right { display: flex; gap: 30px; }
+        .magnetic-btn { background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; padding: 10px; display: inline-block; }
+
+        /* --- 5. HERO SECTION --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 4vw; position: relative; overflow: hidden; }
+        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translateX(-50%) translateY(-50%); z-index: -2; object-fit: cover; filter: grayscale(80%) contrast(1.2) brightness(0.4); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); z-index: -1; }
+        
+        .hero-title-wrapper { z-index: 1; display: flex; flex-direction: column; align-items: flex-start; }
+        .hero h1 {
+            font-family: 'Noto Sans JP', sans-serif; font-size: clamp(5rem, 15vw, 15rem);
+            line-height: 0.9; margin-bottom: 0px; color: transparent;
+            -webkit-text-stroke: 1px var(--text); transition: color 0.5s ease;
+        }
+        .hero h1:hover { color: var(--text); }
+        .hero h2 {
+            font-family: 'Inter', sans-serif; font-weight: 300; font-size: clamp(1rem, 3vw, 2.5rem);
+            letter-spacing: clamp(10px, 3vw, 35px); color: var(--accent); margin-top: 10px; margin-bottom: 30px; margin-left: 10px;
+        }
+        .hero p { font-size: clamp(0.8rem, 1.5vw, 1rem); font-weight: 300; letter-spacing: 5px; text-transform: uppercase; max-width: 600px; color: #aaaaaa; z-index: 1; }
+
+        /* --- 6. CAUTION TAPE MARQUEE --- */
+        .marquee-wrapper { position: relative; transform: rotate(-2deg) scale(1.05); margin: 50px 0 100px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); z-index: 50; }
+        .marquee-wrapper::before { content: ''; position: absolute; top: -8px; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(45deg, #000, #000 10px, var(--caution) 10px, var(--caution) 20px); z-index: 2; border-top: 1px solid #111; }
+        .marquee-wrapper::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(45deg, #000, #000 10px, var(--caution) 10px, var(--caution) 20px); z-index: 2; border-bottom: 1px solid #111; }
+        .marquee-container { width: 100%; padding: 12px 0; background: var(--caution); color: #000000; overflow: hidden; white-space: nowrap; display: flex; align-items: center; border-top: 3px solid #000; border-bottom: 3px solid #000; }
+        .marquee-content { font-family: 'Anton', sans-serif; font-size: 3.5rem; text-transform: uppercase; display: inline-block; animation: scrollMarquee 15s linear infinite; letter-spacing: 4px; line-height: 1; }
+        .marquee-content span { margin: 0 30px; }
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- 7. THE VAULT (PRODUCT GRID WITH 3D HOVER) --- */
+        .vault-section { padding: 100px 4vw; }
+        .section-header { font-family: 'Anton', sans-serif; font-size: 3rem; text-transform: uppercase; margin-bottom: 60px; border-bottom: 1px solid #333; padding-bottom: 20px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        
+        .product-card { 
+            position: relative; cursor: none; opacity: 0; transform: translateY(50px); 
+            transition: opacity 0.8s ease, transform 0.1s ease-out;
+            transform-style: preserve-3d; 
+            perspective: 1000px;
+            will-change: transform;
+        }
+        .product-card.in-view { opacity: 1; transform: translateY(0); }
+        
+        .img-wrapper { 
+            width: 100%; aspect-ratio: 4/5; background: var(--gray); overflow: hidden; 
+            position: relative; margin-bottom: 20px;
+            transform: translateZ(40px);
+            transition: transform 0.1s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.8s ease; filter: grayscale(80%); }
+        .product-card:hover .img-wrapper img { filter: grayscale(0%); }
+
+        .glare {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 10;
+            background: transparent; transition: background 0.1s ease-out;
+        }
+
+        .sold-out-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Anton', sans-serif; font-size: 3rem; color: var(--text); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; text-shadow: 0 10px 30px rgba(0,0,0,0.8); white-space: nowrap; }
+        .product-card:hover .sold-out-overlay { opacity: 1; }
+
+        .info { 
+            display: flex; justify-content: space-between; align-items: flex-start;
+            transform: translateZ(60px); 
+            transition: transform 0.1s ease-out;
+        }
+        .title { font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .cat { font-size: 0.8rem; color: #666; margin-top: 5px; text-transform: uppercase; letter-spacing: 2px; }
+        .price { font-weight: 300; font-size: 1rem; color: var(--accent); }
+
+        /* --- 8. CAMPAIGN LOOKBOOK --- */
+        .campaign-section { padding: 100px 4vw; }
+        .campaign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .campaign-block { position: relative; height: 60vh; background: var(--gray); overflow: hidden; cursor: none; }
+        .campaign-video { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.2); opacity: 0.5; transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .campaign-block:hover .campaign-video { filter: grayscale(0%) contrast(1); opacity: 1; transform: scale(1.05); }
+        .campaign-label { position: absolute; bottom: 30px; left: 30px; font-family: 'Anton', sans-serif; font-size: 2.5rem; text-transform: uppercase; z-index: 10; pointer-events: none; mix-blend-mode: difference; }
+
+        footer { padding: 60px 4vw; border-top: 1px solid #333; text-align: center; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: #666; margin-top: 100px; }
+
+        /* --- 9. NATIVE MOBILE APP FLUIDITY UPGRADES --- */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 4rem; }
+            
+            .grid, .campaign-grid {
+                display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+                scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+                padding-bottom: 30px; gap: 20px;
+            }
+            .grid::-webkit-scrollbar, .campaign-grid::-webkit-scrollbar { display: none; }
+            .product-card, .campaign-block { min-width: 85vw; scroll-snap-align: center; flex-shrink: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <div class="custom-cursor" id="cursor"></div>
+
+    <nav>
+        <a href="#" class="nav-logo hover-target glitch-hover">キックス</a>
+        <div class="nav-right">
+            <a href="index.html" class="magnetic-btn hover-target glitch-hover">Main Site</a>
+            <a href="#" class="magnetic-btn hover-target glitch-hover" onclick="alert('Cart is empty. Drop loading soon.')">Cart (0)</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <video class="hero-video" autoplay loop muted playsinline>
+            <source src="Nike Air Force One - Spec Spot - by Blackfox-Media (4k) - Blackfox Media (1080p, h264).mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-title-wrapper hover-target">
+            <h1 class="glitch-hover">キックス</h1>
+            <h2>KIKKUSU</h2>
+        </div>
+        <p>Architecting the future of footwear and apparel. Exclusivity by design. Engineering the inaugural drop.</p>
+    </section>
+
+    <div class="marquee-wrapper">
+        <div class="marquee-container">
+            <div class="marquee-content hover-target">
+                <span>CAUTION</span> <span>//</span>
+                <span>RESTRICTED AREA</span> <span>//</span>
+                <span>DO NOT CROSS</span> <span>//</span>
+                <span>INAUGURAL DROP</span> <span>//</span>
+                <span>CAUTION</span> <span>//</span>
+                <span>RESTRICTED AREA</span> <span>//</span>
+                <span>DO NOT CROSS</span> <span>//</span>
+                <span>INAUGURAL DROP</span> <span>//</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="vault-section" id="vault">
+        <h2 class="section-header">The Vault // AF1 Custom Series</h2>
+        <div class="grid">
+            <div class="product-card scroll-reveal hover-target">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80" alt="AF1 Triple White">
+                    <div class="glare"></div>
+                    <div class="sold-out-overlay">SOLD OUT</div>
+                </div>
+                <div class="info">
+                    <div>
+                        <div class="title">KIKKUSU x AF1 'Triple White'</div>
+                        <div class="cat">Edition / 001</div>
+                    </div>
+                    <div class="price">₹12,995</div>
+                </div>
+            </div>
+            <div class="product-card scroll-reveal hover-target">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=800&q=80" alt="AF1 Shadow">
+                    <div class="glare"></div>
+                    <div class="sold-out-overlay">SOLD OUT</div>
+                </div>
+                <div class="info">
+                    <div>
+                        <div class="title">KIKKUSU x AF1 'Phantom'</div>
+                        <div class="cat">Edition / 002</div>
+                    </div>
+                    <div class="price">₹14,500</div>
+                </div>
+            </div>
+            <div class="product-card scroll-reveal hover-target">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80" alt="AF1 Utility">
+                    <div class="glare"></div>
+                    <div class="sold-out-overlay">SOLD OUT</div>
+                </div>
+                <div class="info">
+                    <div>
+                        <div class="title">KIKKUSU x AF1 'Utility'</div>
+                        <div class="cat">Edition / 003</div>
+                    </div>
+                    <div class="price">₹15,995</div>
+                </div>
+            </div>
+            <div class="product-card scroll-reveal hover-target">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80" alt="AF1 High">
+                    <div class="glare"></div>
+                    <div class="sold-out-overlay">SOLD OUT</div>
+                </div>
+                <div class="info">
+                    <div>
+                        <div class="title">KIKKUSU x AF1 'High-Top'</div>
+                        <div class="cat">Edition / 004</div>
+                    </div>
+                    <div class="price">₹18,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="campaign-section scroll-reveal">
+        <h2 class="section-header">Campaigns // 000</h2>
+        <div class="campaign-grid">
+            <div class="campaign-block hover-target">
+                <video class="campaign-video" loop muted playsinline>
+                    <source src="Nike Air Force One - Spec Spot - by Blackfox-Media (4k) - Blackfox Media (1080p, h264).mp4" type="video/mp4">
+                </video>
+                <div class="campaign-label glitch-hover">Vol. 1 - Origin</div>
+            </div>
+            
+            <div class="campaign-block hover-target">
+                <video class="campaign-video" loop muted playsinline>
+                    <source src="CRISTIANO RONALDO CELEBRATION 4K•free clip for edit•free edit•4k•Real Madrid - ADILET AIDAGARAEV (1080p, h264).mp4" type="video/mp4">
+                </video>
+                <div class="campaign-label glitch-hover">Vol. 2 - CR7 Legacy</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 KIKKUSU | Adarsh Mishra. Engineered for the culture.
+    </footer>
+
+    <script>
+        // --- 1. CUSTOM CURSOR PHYSICS ---
+        const cursor = document.getElementById('cursor');
+        let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX; let cursorY = mouseY;
+
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function renderCursor() {
+            cursorX += (mouseX - cursorX) * 0.2; cursorY += (mouseY - cursorY) * 0.2;
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            requestAnimationFrame(renderCursor);
+        }
+        renderCursor();
+
+        const hoverTargets = document.querySelectorAll('.hover-target');
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // --- 2. THE 3D PARALLAX ENGINE ---
+        const cards = document.querySelectorAll('.product-card');
+        
+        cards.forEach(card => {
+            const glare = card.querySelector('.glare');
+            
+            card.addEventListener('mousemove', (e) => {
+                if (window.innerWidth <= 900) return; 
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top; 
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -15; 
+                const rotateY = ((x - centerX) / centerX) * 15;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                
+                if(glare) {
+                    glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15), transparent 50%)`;
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                if(glare) glare.style.background = `transparent`;
+            });
+        });
+
+        // --- 3. CAMPAIGN VIDEO PLAY ON HOVER ---
+        const campaignBlocks = document.querySelectorAll('.campaign-block');
+        campaignBlocks.forEach(block => {
+            const vid = block.querySelector('video');
+            if(vid) {
+                block.addEventListener('mouseenter', () => vid.play());
+                block.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+            }
+        });
+
+        // --- 4. MAGNETIC BUTTONS ---
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const h = rect.width / 2; const v = rect.height / 2;
+                const x = e.clientX - rect.left - h; const y = e.clientY - rect.top - v;
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = `translate(0px, 0px)`;
+                btn.style.transition = `transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)`;
+            });
+            btn.addEventListener('mouseenter', () => { btn.style.transition = `none`; });
+        });
+
+        // --- 5. SCROLL REVEAL PARALLAX ---
+        const scrollElements = document.querySelectorAll('.scroll-reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        scrollElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
