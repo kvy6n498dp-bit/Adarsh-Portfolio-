@@ -156,38 +156,42 @@
 
         footer { padding: 60px 4vw; border-top: 1px solid #333; text-align: center; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: #666; margin-top: clamp(60px, 10vw, 100px); }
 
-        /* --- 9. HEAVY MOBILE OPTIMIZATIONS (FIXED 2-COLUMN GRID) --- */
+        /* --- 9. HEAVY MOBILE OPTIMIZATIONS --- */
         @media (max-width: 900px) {
             nav { padding: 20px 5vw; flex-direction: column; gap: 15px; }
             .nav-logo { font-size: 1.2rem; }
             .hero h1 { font-size: 4.5rem; }
             
-            /* The Fix: Force a clean 2-column grid for the shoes on mobile */
+            /* Clean 2-Column Grid for Shoes */
             .grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
             }
             
-            /* Scale down the typography for the smaller cards */
             .img-wrapper { margin-bottom: 10px; }
             .title { font-size: 0.75rem; letter-spacing: 0px; }
             .cat { font-size: 0.55rem; }
             .price { font-size: 0.75rem; }
             
-            /* Make SOLD OUT visible and appropriately sized without hovering */
             .sold-out-overlay { opacity: 1; font-size: 1.2rem; background: rgba(0,0,0,0.4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(1px); }
             .img-wrapper img { filter: grayscale(30%); }
 
-            /* Campaign Lookbook stays as a swipe-slider because they are videos */
+            /* FIXED CAMPAIGN LOOKBOOK: Pure Vertical Layout & Pristine 16:9 Ratio */
             .campaign-grid {
-                display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-                scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
-                padding-bottom: 30px; gap: 15px;
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
             }
-            .campaign-grid::-webkit-scrollbar { display: none; }
-            .campaign-block { min-width: 85vw; height: 40vh; scroll-snap-align: center; flex-shrink: 0; }
-            .campaign-label { bottom: 20px; left: 20px; font-size: 1.5rem; }
+            .campaign-block { 
+                width: 100%;
+                min-width: 100%;
+                height: auto; 
+                aspect-ratio: 16/9; /* Perfect wide-angle landscape preservation */
+                flex-shrink: 0; 
+            }
+            .campaign-label { bottom: 15px; left: 15px; font-size: 1.3rem; }
+            .campaign-video { filter: grayscale(0%) contrast(1); opacity: 1; }
         }
     </style>
 </head>
@@ -377,7 +381,6 @@
             const glare = card.querySelector('.glare');
             
             card.addEventListener('mousemove', (e) => {
-                // Disable on mobile so it doesn't break touch scrolling
                 if (window.innerWidth <= 900) return; 
 
                 const rect = card.getBoundingClientRect();
@@ -403,13 +406,32 @@
             });
         });
 
-        // --- 4. CAMPAIGN VIDEO PLAY ON HOVER ---
+        // --- 4. CAMPAIGN VIDEO PLAY (HOVER ON DESKTOP, AUTOPLAY ON MOBILE) ---
         const campaignBlocks = document.querySelectorAll('.campaign-block');
+        
+        const vidObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const vid = entry.target.querySelector('video');
+                if(vid && window.innerWidth <= 900) {
+                    if(entry.isIntersecting) {
+                        vid.play().catch(err => console.log("Autoplay blocked:", err));
+                    } else {
+                        vid.pause();
+                    }
+                }
+            });
+        }, { threshold: 0.3 }); 
+
         campaignBlocks.forEach(block => {
             const vid = block.querySelector('video');
             if(vid) {
-                block.addEventListener('mouseenter', () => vid.play());
-                block.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+                block.addEventListener('mouseenter', () => { 
+                    if(window.innerWidth > 900) vid.play(); 
+                });
+                block.addEventListener('mouseleave', () => { 
+                    if(window.innerWidth > 900) { vid.pause(); vid.currentTime = 0; } 
+                });
+                vidObserver.observe(block);
             }
         });
 
