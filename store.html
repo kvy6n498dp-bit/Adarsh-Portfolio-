@@ -34,7 +34,7 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* --- 2. TERMINAL LOADING GATE (BROUGHT BACK!) --- */
+        /* --- 2. TERMINAL LOADING GATE --- */
         #drop-gate {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000; z-index: 9999999; display: flex; flex-direction: column;
@@ -54,21 +54,7 @@
         }
         .gate-percentage { font-size: 0.9rem; color: var(--accent); letter-spacing: 3px; }
 
-        /* --- 3. VISUAL GLITCH EFFECT --- */
-        @keyframes rgb-glitch {
-            0% { transform: translate(0); text-shadow: none; }
-            20% { transform: translate(-2px, 1px); text-shadow: 2px 0px #ff003c, -2px 0px #00eaff; }
-            40% { transform: translate(2px, -1px); text-shadow: -2px 0px #ff003c, 2px 0px #00eaff; }
-            60% { transform: translate(-1px, 2px); text-shadow: 2px 0px #ff003c, -2px 0px #00eaff; }
-            80% { transform: translate(1px, -2px); text-shadow: -2px 0px #ff003c, 2px 0px #00eaff; }
-            100% { transform: translate(0); text-shadow: none; }
-        }
-        .glitch-hover:hover {
-            animation: rgb-glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
-            color: var(--text);
-        }
-
-        /* --- 4. CUSTOM DOT CURSOR --- */
+        /* --- 3. CUSTOM DOT CURSOR --- */
         .custom-cursor {
             position: fixed; top: 0; left: 0; width: 10px; height: 10px;
             background: var(--accent); border-radius: 50%;
@@ -79,7 +65,7 @@
         .custom-cursor.hovered { width: 50px; height: 50px; background: var(--text); }
         @media (max-width: 900px) { .custom-cursor { display: none; } body { cursor: auto; } }
 
-        /* --- 5. NAVBAR --- */
+        /* --- 4. NAVBAR --- */
         nav {
             position: fixed; top: 0; width: 100%; padding: 30px 4vw;
             display: flex; justify-content: space-between; align-items: center;
@@ -89,7 +75,7 @@
         .nav-right { display: flex; gap: clamp(10px, 3vw, 30px); }
         .magnetic-btn { background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif; font-weight: 600; font-size: clamp(0.7rem, 2vw, 0.9rem); text-transform: uppercase; letter-spacing: 2px; text-decoration: none; padding: 10px; display: inline-block; }
 
-        /* --- 6. HERO SECTION --- */
+        /* --- 5. HERO SECTION --- */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 4vw; position: relative; overflow: hidden; }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translateX(-50%) translateY(-50%); z-index: -2; object-fit: cover; filter: grayscale(80%) contrast(1.2) brightness(0.4); }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); z-index: -1; }
@@ -108,7 +94,7 @@
         }
         .hero p { font-size: clamp(0.75rem, 2vw, 1rem); font-weight: 300; letter-spacing: clamp(2px, 1vw, 5px); text-transform: uppercase; max-width: 600px; color: #aaaaaa; z-index: 1; }
 
-        /* --- 7. CAUTION TAPE MARQUEE --- */
+        /* --- 6. CAUTION TAPE MARQUEE --- */
         .marquee-wrapper { position: relative; transform: rotate(-2deg) scale(1.05); margin: clamp(30px, 8vw, 50px) 0 clamp(60px, 12vw, 100px); box-shadow: 0 15px 40px rgba(0,0,0,0.8); z-index: 50; }
         .marquee-wrapper::before { content: ''; position: absolute; top: -8px; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(45deg, #000, #000 10px, var(--caution) 10px, var(--caution) 20px); z-index: 2; border-top: 1px solid #111; }
         .marquee-wrapper::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(45deg, #000, #000 10px, var(--caution) 10px, var(--caution) 20px); z-index: 2; border-bottom: 1px solid #111; }
@@ -117,16 +103,7 @@
         .marquee-content span { margin: 0 clamp(15px, 3vw, 30px); }
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- 8. TYPOGRAPHY MENU --- */
-        .menu-section { padding: clamp(60px, 10vw, 100px) 4vw; }
-        .menu-list { list-style: none; display: flex; flex-direction: column; border-top: 1px solid #333; }
-        .menu-item { border-bottom: 1px solid #333; padding: 4vw 0; position: relative; display: flex; justify-content: space-between; align-items: center; }
-        .menu-text { font-family: 'Anton', sans-serif; font-size: clamp(3rem, 12vw, 8rem); text-transform: uppercase; color: var(--text); text-decoration: none; transition: transform 0.4s ease, color 0.4s ease; z-index: 10; mix-blend-mode: difference; }
-        .menu-item:hover .menu-text { transform: translateX(30px); }
-        .menu-tag { font-size: clamp(0.7rem, 2vw, 1rem); font-weight: 300; letter-spacing: 2px; color: #666; text-transform: uppercase; transition: opacity 0.4s ease; }
-        .menu-item:hover .menu-tag { opacity: 0; }
-
-        /* --- 9. THE VAULT (PRODUCT GRID WITH 3D HOVER) --- */
+        /* --- 7. THE VAULT (PRODUCT GRID WITH 3D HOVER) --- */
         .vault-section { padding: clamp(60px, 10vw, 100px) 4vw; }
         .section-header { font-family: 'Anton', sans-serif; font-size: clamp(2rem, 6vw, 3rem); text-transform: uppercase; margin-bottom: clamp(30px, 6vw, 60px); border-bottom: 1px solid #333; padding-bottom: 20px; }
         
@@ -169,7 +146,7 @@
         .cat { font-size: clamp(0.6rem, 1.5vw, 0.8rem); color: #666; margin-top: 5px; text-transform: uppercase; letter-spacing: 2px; }
         .price { font-weight: 300; font-size: clamp(0.8rem, 2vw, 1rem); color: var(--accent); }
 
-        /* --- 10. CAMPAIGN LOOKBOOK --- */
+        /* --- 8. CAMPAIGN LOOKBOOK --- */
         .campaign-section { padding: clamp(60px, 10vw, 100px) 4vw; }
         .campaign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(15px, 3vw, 20px); }
         .campaign-block { position: relative; height: 60vh; background: var(--gray); overflow: hidden; cursor: none; }
@@ -179,12 +156,10 @@
 
         footer { padding: 60px 4vw; border-top: 1px solid #333; text-align: center; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: #666; margin-top: clamp(60px, 10vw, 100px); }
 
-        /* --- 11. HEAVY MOBILE OPTIMIZATIONS --- */
+        /* --- 9. HEAVY MOBILE OPTIMIZATIONS --- */
         @media (max-width: 900px) {
             nav { padding: 20px 5vw; flex-direction: column; gap: 15px; }
             .nav-logo { font-size: 1.2rem; }
-            
-            .menu-item:hover .menu-text { transform: translateX(10px); }
             
             /* Convert Grids to Horizontal Swipe Tracks on Mobile */
             .grid, .campaign-grid {
@@ -194,7 +169,8 @@
             }
             .grid::-webkit-scrollbar, .campaign-grid::-webkit-scrollbar { display: none; }
             
-            .product-card { min-width: 80vw; scroll-snap-align: center; flex-shrink: 0; }
+            /* Cards scale down to fit the phone screen properly */
+            .product-card { min-width: 60vw; scroll-snap-align: center; flex-shrink: 0; }
             
             .campaign-block { min-width: 85vw; height: 40vh; scroll-snap-align: center; flex-shrink: 0; }
             .campaign-label { bottom: 20px; left: 20px; }
@@ -206,7 +182,7 @@
     <div class="noise-overlay"></div>
 
     <div id="drop-gate">
-        <div class="gate-title glitch-hover">キックス</div>
+        <div class="gate-title">キックス</div>
         <div class="gate-status" id="loading-status">INITIALIZING SYSTEM</div>
         <div class="loading-bar-container">
             <div class="loading-bar" id="loading-bar"></div>
@@ -217,20 +193,20 @@
     <div class="custom-cursor" id="cursor"></div>
 
     <nav>
-        <a href="#" class="nav-logo hover-target glitch-hover">キックス</a>
+        <a href="#" class="nav-logo hover-target">キックス</a>
         <div class="nav-right">
-            <a href="index.html" class="magnetic-btn hover-target glitch-hover">Main Site</a>
-            <a href="#" class="magnetic-btn hover-target glitch-hover" onclick="alert('Cart is empty. Drop loading soon.')">Cart (0)</a>
+            <a href="index.html" class="magnetic-btn hover-target">Main Site</a>
+            <a href="#" class="magnetic-btn hover-target" onclick="alert('Cart is empty. Drop loading soon.')">Cart (0)</a>
         </div>
     </nav>
 
     <section class="hero">
         <video class="hero-video" autoplay loop muted playsinline>
-            <source src="Nike Air Force One - Spec Spot - by Blackfox-Media (4k) - Blackfox Media (1080p, h264).mp4" type="video/mp4">
+            <source src="nike.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-title-wrapper hover-target">
-            <h1 class="glitch-hover">キックス</h1>
+            <h1>キックス</h1>
             <h2>KIKKUSU</h2>
         </div>
         <p>Architecting the future of footwear and apparel. Exclusivity by design. Engineering the inaugural drop.</p>
@@ -251,19 +227,6 @@
         </div>
     </div>
 
-    <section class="menu-section">
-        <ul class="menu-list" id="menu-list">
-            <li class="menu-item hover-target">
-                <a href="#vault" class="menu-text glitch-hover">Boys.</a>
-                <span class="menu-tag">01 // Sneaker Culture</span>
-            </li>
-            <li class="menu-item hover-target">
-                <a href="#vault" class="menu-text glitch-hover">Men.</a>
-                <span class="menu-tag">02 // Formal & Leather</span>
-            </li>
-        </ul>
-    </section>
-
     <section class="vault-section" id="vault">
         <h2 class="section-header">The Vault // AF1 Custom Series</h2>
         <div class="grid">
@@ -273,7 +236,13 @@
                     <div class="glare"></div>
                     <div class="sold-out-overlay">SOLD OUT</div>
                 </div>
-                <div class="info"><div><div class="title">KIKKUSU x AF1 'Triple White'</div><div class="cat">Edition / 001</div></div><div class="price">₹12,995</div></div>
+                <div class="info">
+                    <div>
+                        <div class="title">KIKKUSU x AF1 'Triple White'</div>
+                        <div class="cat">Edition / 001</div>
+                    </div>
+                    <div class="price">₹12,995</div>
+                </div>
             </div>
             <div class="product-card scroll-reveal hover-target">
                 <div class="img-wrapper">
@@ -281,7 +250,13 @@
                     <div class="glare"></div>
                     <div class="sold-out-overlay">SOLD OUT</div>
                 </div>
-                <div class="info"><div><div class="title">KIKKUSU x AF1 'Phantom'</div><div class="cat">Edition / 002</div></div><div class="price">₹14,500</div></div>
+                <div class="info">
+                    <div>
+                        <div class="title">KIKKUSU x AF1 'Phantom'</div>
+                        <div class="cat">Edition / 002</div>
+                    </div>
+                    <div class="price">₹14,500</div>
+                </div>
             </div>
             <div class="product-card scroll-reveal hover-target">
                 <div class="img-wrapper">
@@ -289,7 +264,13 @@
                     <div class="glare"></div>
                     <div class="sold-out-overlay">SOLD OUT</div>
                 </div>
-                <div class="info"><div><div class="title">KIKKUSU x AF1 'Utility'</div><div class="cat">Edition / 003</div></div><div class="price">₹15,995</div></div>
+                <div class="info">
+                    <div>
+                        <div class="title">KIKKUSU x AF1 'Utility'</div>
+                        <div class="cat">Edition / 003</div>
+                    </div>
+                    <div class="price">₹15,995</div>
+                </div>
             </div>
             <div class="product-card scroll-reveal hover-target">
                 <div class="img-wrapper">
@@ -297,7 +278,13 @@
                     <div class="glare"></div>
                     <div class="sold-out-overlay">SOLD OUT</div>
                 </div>
-                <div class="info"><div><div class="title">KIKKUSU x AF1 'High-Top'</div><div class="cat">Edition / 004</div></div><div class="price">₹18,000</div></div>
+                <div class="info">
+                    <div>
+                        <div class="title">KIKKUSU x AF1 'High-Top'</div>
+                        <div class="cat">Edition / 004</div>
+                    </div>
+                    <div class="price">₹18,000</div>
+                </div>
             </div>
         </div>
     </section>
@@ -307,16 +294,16 @@
         <div class="campaign-grid">
             <div class="campaign-block hover-target">
                 <video class="campaign-video" loop muted playsinline>
-                    <source src="Nike Air Force One - Spec Spot - by Blackfox-Media (4k) - Blackfox Media (1080p, h264).mp4" type="video/mp4">
+                    <source src="nike.mp4" type="video/mp4">
                 </video>
-                <div class="campaign-label glitch-hover">Vol. 1 - Origin</div>
+                <div class="campaign-label">Vol. 1 - Origin</div>
             </div>
             
             <div class="campaign-block hover-target">
                 <video class="campaign-video" loop muted playsinline>
-                    <source src="CRISTIANO RONALDO CELEBRATION 4K•free clip for edit•free edit•4k•Real Madrid - ADILET AIDAGARAEV (1080p, h264).mp4" type="video/mp4">
+                    <source src="ronaldo.mp4" type="video/mp4">
                 </video>
-                <div class="campaign-label glitch-hover">Vol. 2 - CR7 Legacy</div>
+                <div class="campaign-label">Vol. 2 - CR7 Legacy</div>
             </div>
         </div>
     </section>
@@ -326,7 +313,7 @@
     </footer>
 
     <script>
-        // --- 1. LOADING SCREEN LOGIC (RESTORED) ---
+        // --- 1. LOADING SCREEN LOGIC ---
         const gate = document.getElementById('drop-gate');
         const loadBar = document.getElementById('loading-bar');
         const loadText = document.getElementById('loading-status');
