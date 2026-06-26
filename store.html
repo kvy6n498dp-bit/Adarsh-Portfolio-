@@ -27,14 +27,12 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- 1. CCTV STATIC FILM GRAIN --- */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none; z-index: 999998; opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* --- 2. TERMINAL LOADING GATE --- */
         #drop-gate {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000; z-index: 9999999; display: flex; flex-direction: column;
@@ -46,15 +44,10 @@
         .gate-title { font-family: 'Noto Sans JP', sans-serif; font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 10px; letter-spacing: 10px; color: var(--text); text-align: center; }
         .gate-status { font-size: clamp(0.8rem, 3vw, 1.2rem); color: var(--text); margin-bottom: 20px; letter-spacing: 4px; transition: color 0.3s; text-align: center; padding: 0 20px; }
         
-        .loading-bar-container {
-            width: 80%; max-width: 250px; height: 2px; background: #333; margin-bottom: 15px; position: relative; overflow: hidden;
-        }
-        .loading-bar {
-            height: 100%; width: 0%; background: var(--accent); transition: width 0.1s linear;
-        }
+        .loading-bar-container { width: 80%; max-width: 250px; height: 2px; background: #333; margin-bottom: 15px; position: relative; overflow: hidden; }
+        .loading-bar { height: 100%; width: 0%; background: var(--accent); transition: width 0.1s linear; }
         .gate-percentage { font-size: 0.9rem; color: var(--accent); letter-spacing: 3px; }
 
-        /* --- 3. CUSTOM DOT CURSOR --- */
         .custom-cursor {
             position: fixed; top: 0; left: 0; width: 10px; height: 10px;
             background: var(--accent); border-radius: 50%;
@@ -63,9 +56,9 @@
             mix-blend-mode: difference;
         }
         .custom-cursor.hovered { width: 50px; height: 50px; background: var(--text); }
+        .custom-cursor.scratching { width: 80px; height: 80px; background: var(--caution); mix-blend-mode: normal; opacity: 0.5; }
         @media (max-width: 900px) { .custom-cursor { display: none; } body { cursor: auto; } }
 
-        /* --- 4. NAVBAR --- */
         nav {
             position: fixed; top: 0; width: 100%; padding: 30px 4vw;
             display: flex; justify-content: space-between; align-items: center;
@@ -73,80 +66,65 @@
         }
         .nav-logo { font-family: 'Noto Sans JP', sans-serif; font-size: clamp(1.2rem, 3vw, 1.5rem); letter-spacing: 2px; text-decoration: none; color: var(--text); }
         .nav-right { display: flex; gap: clamp(10px, 3vw, 30px); }
-        .magnetic-btn { background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif; font-weight: 600; font-size: clamp(0.7rem, 2vw, 0.9rem); text-transform: uppercase; letter-spacing: 2px; text-decoration: none; padding: 10px; display: inline-block; }
+        .magnetic-btn { background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif; font-weight: 600; font-size: clamp(0.7rem, 2vw, 0.9rem); text-transform: uppercase; letter-spacing: 2px; text-decoration: none; padding: 10px; display: inline-block; cursor: none; }
 
-        /* --- 5. HERO SECTION --- */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 4vw; position: relative; overflow: hidden; }
         .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translateX(-50%) translateY(-50%); z-index: -2; object-fit: cover; filter: grayscale(80%) contrast(1.2) brightness(0.4); }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.6); z-index: -1; }
         
         .hero-title-wrapper { z-index: 1; display: flex; flex-direction: column; align-items: flex-start; }
-        .hero h1 {
-            font-family: 'Noto Sans JP', sans-serif; font-size: clamp(4rem, 20vw, 15rem);
-            line-height: 0.9; margin-bottom: 0px; color: transparent;
-            -webkit-text-stroke: 1px var(--text); transition: color 0.5s ease;
-            word-break: keep-all; white-space: nowrap;
-        }
+        .hero h1 { font-family: 'Noto Sans JP', sans-serif; font-size: clamp(4rem, 20vw, 15rem); line-height: 0.9; margin-bottom: 0px; color: transparent; -webkit-text-stroke: 1px var(--text); transition: color 0.5s ease; word-break: keep-all; white-space: nowrap; }
         .hero h1:hover { color: var(--text); }
-        .hero h2 {
-            font-family: 'Inter', sans-serif; font-weight: 300; font-size: clamp(1rem, 4vw, 2.5rem);
-            letter-spacing: clamp(10px, 4vw, 35px); color: var(--accent); margin-top: 10px; margin-bottom: 30px; margin-left: clamp(2px, 1vw, 10px);
-        }
+        .hero h2 { font-family: 'Inter', sans-serif; font-weight: 300; font-size: clamp(1rem, 4vw, 2.5rem); letter-spacing: clamp(10px, 4vw, 35px); color: var(--accent); margin-top: 10px; margin-bottom: 30px; margin-left: clamp(2px, 1vw, 10px); }
         .hero p { font-size: clamp(0.75rem, 2vw, 1rem); font-weight: 300; letter-spacing: clamp(2px, 1vw, 5px); text-transform: uppercase; max-width: 600px; color: #aaaaaa; z-index: 1; }
 
-        /* --- 6. CAUTION TAPE MARQUEE --- */
         .marquee-wrapper { position: relative; transform: rotate(-2deg) scale(1.05); margin: clamp(30px, 8vw, 50px) 0 clamp(60px, 12vw, 100px); box-shadow: 0 15px 40px rgba(0,0,0,0.8); z-index: 50; }
-        .marquee-wrapper::before { content: ''; position: absolute; top: -8px; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(45deg, #000, #000 10px, var(--caution) 10px, var(--caution) 20px); z-index: 2; border-top: 1px solid #111; }
-        .marquee-wrapper::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(45deg, #000, #000 10px, var(--caution) 10px, var(--caution) 20px); z-index: 2; border-bottom: 1px solid #111; }
+        .marquee-wrapper::before, .marquee-wrapper::after { content: ''; position: absolute; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(45deg, #000, #000 10px, var(--caution) 10px, var(--caution) 20px); z-index: 2; }
+        .marquee-wrapper::before { top: -8px; border-top: 1px solid #111; }
+        .marquee-wrapper::after { bottom: -8px; border-bottom: 1px solid #111; }
         .marquee-container { width: 100%; padding: 12px 0; background: var(--caution); color: #000000; overflow: hidden; white-space: nowrap; display: flex; align-items: center; border-top: 3px solid #000; border-bottom: 3px solid #000; }
         .marquee-content { font-family: 'Anton', sans-serif; font-size: clamp(2rem, 6vw, 3.5rem); text-transform: uppercase; display: inline-block; animation: scrollMarquee 15s linear infinite; letter-spacing: 4px; line-height: 1; }
         .marquee-content span { margin: 0 clamp(15px, 3vw, 30px); }
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- 7. THE VAULT (PRODUCT GRID WITH 3D HOVER) --- */
-        .vault-section { padding: clamp(60px, 10vw, 100px) 4vw; }
-        .section-header { font-family: 'Anton', sans-serif; font-size: clamp(2rem, 6vw, 3rem); text-transform: uppercase; margin-bottom: clamp(30px, 6vw, 60px); border-bottom: 1px solid #333; padding-bottom: 20px; }
-        
+        .vault-section { padding: clamp(40px, 8vw, 80px) 4vw; }
+        .section-header { font-family: 'Anton', sans-serif; font-size: clamp(1.8rem, 6vw, 3rem); text-transform: uppercase; margin-bottom: clamp(25px, 6vw, 60px); border-bottom: 1px solid #333; padding-bottom: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(20px, 4vw, 40px); }
         
-        .product-card { 
-            position: relative; cursor: none; opacity: 0; transform: translateY(50px); 
-            transition: opacity 0.8s ease, transform 0.1s ease-out;
-            transform-style: preserve-3d; 
-            perspective: 1000px;
-            will-change: transform;
-        }
+        .product-card { position: relative; cursor: none; opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease, transform 0.1s ease-out; transform-style: preserve-3d; perspective: 1000px; will-change: transform; z-index: 10; }
         .product-card.in-view { opacity: 1; transform: translateY(0); }
         
-        .img-wrapper { 
-            width: 100%; aspect-ratio: 4/5; background: var(--gray); overflow: hidden; 
-            position: relative; margin-bottom: 20px;
-            transform: translateZ(40px);
-            transition: transform 0.1s ease-out;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        .img-wrapper { width: 100%; aspect-ratio: 4/5; background: var(--gray); overflow: hidden; position: relative; margin-bottom: 20px; transform: translateZ(40px); transition: transform 0.1s ease-out; box-shadow: 0 10px 30px rgba(0,0,0,0.5); pointer-events: none; }
         .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.8s ease; filter: grayscale(80%); }
         .product-card:hover .img-wrapper img { filter: grayscale(0%); }
-
-        .glare {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 10;
-            background: transparent; transition: background 0.1s ease-out;
-        }
 
         .sold-out-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Anton', sans-serif; font-size: clamp(2rem, 6vw, 3rem); color: var(--text); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; text-shadow: 0 10px 30px rgba(0,0,0,0.8); white-space: nowrap; }
         .product-card:hover .sold-out-overlay { opacity: 1; }
 
-        .info { 
-            display: flex; justify-content: space-between; align-items: flex-start;
-            transform: translateZ(60px); 
-            transition: transform 0.1s ease-out;
-        }
+        .info { display: flex; justify-content: space-between; align-items: flex-start; transform: translateZ(60px); transition: transform 0.1s ease-out; pointer-events: none; }
         .title { font-weight: 600; font-size: clamp(0.9rem, 2vw, 1.1rem); text-transform: uppercase; letter-spacing: 1px; }
         .cat { font-size: clamp(0.6rem, 1.5vw, 0.8rem); color: #666; margin-top: 5px; text-transform: uppercase; letter-spacing: 2px; }
         .price { font-weight: 300; font-size: clamp(0.8rem, 2vw, 1rem); color: var(--accent); }
 
-        /* --- 8. CAMPAIGN LOOKBOOK --- */
+        .scratch-wrapper { position: relative; width: 100%; aspect-ratio: 4/5; background: var(--bg); overflow: hidden; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 1px solid #333; pointer-events: auto; }
+        .scratch-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .scratch-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; cursor: crosshair; touch-action: none; }
+
+        .drawer-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 999998; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
+        .drawer-overlay.active { opacity: 1; visibility: visible; }
+        .checkout-drawer { position: fixed; bottom: -100%; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; background: rgba(15, 15, 15, 0.85); backdrop-filter: blur(20px); border: 1px solid #333; border-bottom: none; border-radius: 24px 24px 0 0; padding: 30px 4vw 50px; z-index: 999999; transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; align-items: center; }
+        .checkout-drawer.active { bottom: 0; }
+        .drawer-drag-bar { width: 40px; height: 5px; background: #555; border-radius: 10px; margin-bottom: 30px; }
+        .drawer-content { width: 100%; text-align: center; }
+        .drawer-content h3 { font-family: 'Anton', sans-serif; font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+        
+        .slider-track { position: relative; width: 100%; height: 60px; background: #111; border: 1px solid #333; border-radius: 50px; overflow: hidden; margin-top: 20px; display: flex; align-items: center; justify-content: center; user-select: none; }
+        .slider-text { position: absolute; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 4px; color: #666; pointer-events: none; z-index: 1; transition: opacity 0.3s; }
+        .slider-thumb { position: absolute; left: 5px; top: 5px; width: 50px; height: 50px; background: var(--text); border-radius: 50%; z-index: 2; display: flex; align-items: center; justify-content: center; cursor: grab; transition: transform 0.1s; }
+        .slider-thumb:active { cursor: grabbing; transform: scale(0.95); }
+        .slider-fill { position: absolute; left: 0; top: 0; height: 100%; width: 30px; background: var(--accent); z-index: 0; border-radius: 50px 0 0 50px; }
+        .slider-success { font-family: 'Anton', sans-serif; color: #00ff00; font-size: 1.5rem; letter-spacing: 2px; position: absolute; z-index: 3; opacity: 0; }
+
         .campaign-section { padding: clamp(60px, 10vw, 100px) 4vw; }
         .campaign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(15px, 3vw, 20px); }
         .campaign-block { position: relative; height: 60vh; background: var(--gray); overflow: hidden; cursor: none; }
@@ -156,42 +134,40 @@
 
         footer { padding: 60px 4vw; border-top: 1px solid #333; text-align: center; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: #666; margin-top: clamp(60px, 10vw, 100px); }
 
-        /* --- 9. HEAVY MOBILE OPTIMIZATIONS --- */
+        /* --- MOBILE LAYOUT REFINEMENTS --- */
         @media (max-width: 900px) {
-            nav { padding: 20px 5vw; flex-direction: column; gap: 15px; }
-            .nav-logo { font-size: 1.2rem; }
-            .hero h1 { font-size: 4.5rem; }
+            /* Navbar properly aligns horizontally */
+            nav { padding: 15px 5vw; flex-direction: row; align-items: center; justify-content: space-between; }
+            .nav-logo { font-size: 1rem; }
+            .nav-right { gap: 10px; }
+            .magnetic-btn { font-size: 0.65rem; padding: 5px; }
             
-            /* Clean 2-Column Grid for Shoes */
-            .grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-            
-            .img-wrapper { margin-bottom: 10px; }
-            .title { font-size: 0.75rem; letter-spacing: 0px; }
-            .cat { font-size: 0.55rem; }
-            .price { font-size: 0.75rem; }
-            
-            .sold-out-overlay { opacity: 1; font-size: 1.2rem; background: rgba(0,0,0,0.4); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(1px); }
-            .img-wrapper img { filter: grayscale(30%); }
+            /* Typography scaling */
+            .hero h1 { font-size: clamp(3rem, 15vw, 4.5rem); }
+            .hero h2 { font-size: 1.2rem; letter-spacing: 15px; }
 
-            /* FIXED CAMPAIGN LOOKBOOK: Pure Vertical Layout & Pristine 16:9 Ratio */
-            .campaign-grid {
-                display: flex;
-                flex-direction: column;
-                gap: 25px;
-            }
-            .campaign-block { 
-                width: 100%;
-                min-width: 100%;
-                height: auto; 
-                aspect-ratio: 16/9; /* Perfect wide-angle landscape preservation */
-                flex-shrink: 0; 
-            }
-            .campaign-label { bottom: 15px; left: 15px; font-size: 1.3rem; }
-            .campaign-video { filter: grayscale(0%) contrast(1); opacity: 1; }
+            /* True Mobile Grid */
+            .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .img-wrapper, .scratch-wrapper { margin-bottom: 8px; }
+            .title { font-size: 0.7rem; letter-spacing: 0px; }
+            .cat { font-size: 0.5rem; }
+            .price { font-size: 0.7rem; }
+            
+            .sold-out-overlay { opacity: 0 !important; }
+            .img-wrapper img { filter: grayscale(0%); }
+
+            /* Drawer adjustments */
+            .checkout-drawer { padding: 20px 4vw 40px; }
+            .drawer-content h3 { font-size: 1.5rem; }
+            .slider-track { height: 50px; }
+            .slider-thumb { width: 40px; height: 40px; }
+            .slider-text { font-size: 0.75rem; }
+
+            /* Campaigns layout */
+            .campaign-grid { display: flex; flex-direction: column; gap: 20px; }
+            .campaign-block { width: 100%; min-width: 100%; height: auto; aspect-ratio: 16/9; flex-shrink: 0; }
+            .campaign-label { bottom: 15px; left: 15px; font-size: 1.2rem; }
+            .campaign-video { filter: grayscale(0%) contrast(1); opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
@@ -202,10 +178,25 @@
     <div id="drop-gate">
         <div class="gate-title">キックス</div>
         <div class="gate-status" id="loading-status">INITIALIZING SYSTEM</div>
-        <div class="loading-bar-container">
-            <div class="loading-bar" id="loading-bar"></div>
-        </div>
+        <div class="loading-bar-container"><div class="loading-bar" id="loading-bar"></div></div>
         <div class="gate-percentage" id="loading-percentage">[ 0% ]</div>
+    </div>
+
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="checkout-drawer" id="checkout-drawer">
+        <div class="drawer-drag-bar"></div>
+        <div class="drawer-content">
+            <h3 id="drawer-title">KIKKUSU ITEM</h3>
+            <p id="drawer-price" style="color: var(--accent); font-size: 1.2rem; margin-bottom: 25px;">₹0</p>
+            <div class="slider-track" id="slider-track">
+                <div class="slider-fill" id="slider-fill"></div>
+                <div class="slider-text" id="slider-text">SLIDE TO SECURE</div>
+                <div class="slider-success" id="slider-success">ASSET ACQUIRED</div>
+                <div class="slider-thumb" id="slider-thumb">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="custom-cursor" id="cursor"></div>
@@ -214,7 +205,7 @@
         <a href="#" class="nav-logo hover-target">キックス</a>
         <div class="nav-right">
             <a href="index.html" class="magnetic-btn hover-target">Main Site</a>
-            <a href="#" class="magnetic-btn hover-target" onclick="alert('Cart is empty. Drop loading soon.')">Cart (0)</a>
+            <a href="#" class="magnetic-btn hover-target" onclick="alert('Cart module initializing.')">Cart (0)</a>
         </div>
     </nav>
 
@@ -245,64 +236,49 @@
         </div>
     </div>
 
+    <section class="vault-section" id="classified">
+        <h2 class="section-header" style="color: var(--accent);">Classified Drop // Interact to Reveal</h2>
+        <div class="grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto;">
+            <div class="product-card scroll-reveal">
+                <div class="scratch-wrapper" id="scratch-container">
+                    <img src="https://images.unsplash.com/photo-1579338908476-3a3a1d71a706?auto=format&fit=crop&w=800&q=80" alt="Unreleased Jordan Drop">
+                    <canvas class="scratch-canvas" id="scratchCanvas"></canvas>
+                </div>
+                <div class="info" style="text-align: center; display: block;">
+                    <div><div class="title" style="color: var(--accent);">KIKKUSU 'Subject Zero'</div><div class="cat">Status: Encrypted</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="vault-section" id="vault">
         <h2 class="section-header">The Vault // AF1 Custom Series</h2>
         <div class="grid">
-            <div class="product-card scroll-reveal hover-target">
-                <div class="img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80" alt="AF1 Triple White">
-                    <div class="glare"></div>
-                    <div class="sold-out-overlay">SOLD OUT</div>
-                </div>
-                <div class="info">
-                    <div>
-                        <div class="title">KIKKUSU x AF1 'Triple White'</div>
-                        <div class="cat">Edition / 001</div>
-                    </div>
-                    <div class="price">₹12,995</div>
-                </div>
+            <div class="product-card scroll-reveal hover-target drawer-trigger" data-title="KIKKUSU x AF1 'Triple White'" data-price="₹12,995">
+                <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80" alt="AF1"></div>
+                <div class="info"><div><div class="title">KIKKUSU x AF1 'Triple White'</div><div class="cat">Edition / 001</div></div><div class="price">₹12,995</div></div>
             </div>
-            <div class="product-card scroll-reveal hover-target">
-                <div class="img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=800&q=80" alt="AF1 Shadow">
-                    <div class="glare"></div>
-                    <div class="sold-out-overlay">SOLD OUT</div>
-                </div>
-                <div class="info">
-                    <div>
-                        <div class="title">KIKKUSU x AF1 'Phantom'</div>
-                        <div class="cat">Edition / 002</div>
-                    </div>
-                    <div class="price">₹14,500</div>
-                </div>
+            <div class="product-card scroll-reveal hover-target drawer-trigger" data-title="KIKKUSU x AF1 'Phantom'" data-price="₹14,500">
+                <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=800&q=80" alt="AF1"></div>
+                <div class="info"><div><div class="title">KIKKUSU x AF1 'Phantom'</div><div class="cat">Edition / 002</div></div><div class="price">₹14,500</div></div>
             </div>
-            <div class="product-card scroll-reveal hover-target">
-                <div class="img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80" alt="AF1 Utility">
-                    <div class="glare"></div>
-                    <div class="sold-out-overlay">SOLD OUT</div>
-                </div>
-                <div class="info">
-                    <div>
-                        <div class="title">KIKKUSU x AF1 'Utility'</div>
-                        <div class="cat">Edition / 003</div>
-                    </div>
-                    <div class="price">₹15,995</div>
-                </div>
+        </div>
+    </section>
+
+    <section class="vault-section" id="apparel">
+        <h2 class="section-header">Heavyweight Apparel // Division 1</h2>
+        <div class="grid">
+            <div class="product-card scroll-reveal hover-target drawer-trigger" data-title="KIKKUSU 'Flight' Tee" data-price="₹4,500">
+                <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80" alt="Back Print Tee"></div>
+                <div class="info"><div><div class="title">KIKKUSU 'Flight' Back-Print Tee</div><div class="cat">Garment / Heavyweight</div></div><div class="price">₹4,500</div></div>
             </div>
-            <div class="product-card scroll-reveal hover-target">
-                <div class="img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80" alt="AF1 High">
-                    <div class="glare"></div>
-                    <div class="sold-out-overlay">SOLD OUT</div>
-                </div>
-                <div class="info">
-                    <div>
-                        <div class="title">KIKKUSU x AF1 'High-Top'</div>
-                        <div class="cat">Edition / 004</div>
-                    </div>
-                    <div class="price">₹18,000</div>
-                </div>
+            <div class="product-card scroll-reveal hover-target drawer-trigger" data-title="KIKKUSU 'Turbo' Motorsport" data-price="₹5,200">
+                <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1503342394128-c104d54dba01?auto=format&fit=crop&w=800&q=80" alt="Motorsport Tee"></div>
+                <div class="info"><div><div class="title">KIKKUSU 'Turbo' Motorsport Edition</div><div class="cat">Garment / Technical</div></div><div class="price">₹5,200</div></div>
+            </div>
+            <div class="product-card scroll-reveal hover-target drawer-trigger" data-title="KIKKUSU Onyx Utility Hoodie" data-price="₹8,995">
+                <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80" alt="Hoodie"></div>
+                <div class="info"><div><div class="title">KIKKUSU Onyx Utility Hoodie</div><div class="cat">Garment / Outerwear</div></div><div class="price">₹8,995</div></div>
             </div>
         </div>
     </section>
@@ -311,16 +287,11 @@
         <h2 class="section-header">Campaigns // 000</h2>
         <div class="campaign-grid">
             <div class="campaign-block hover-target">
-                <video class="campaign-video" loop muted playsinline>
-                    <source src="nike.mp4" type="video/mp4">
-                </video>
+                <video class="campaign-video" loop muted playsinline><source src="nike.mp4" type="video/mp4"></video>
                 <div class="campaign-label">Vol. 1 - Origin</div>
             </div>
-            
             <div class="campaign-block hover-target">
-                <video class="campaign-video" loop muted playsinline>
-                    <source src="ronaldo.mp4" type="video/mp4">
-                </video>
+                <video class="campaign-video" loop muted playsinline><source src="ronaldo.mp4" type="video/mp4"></video>
                 <div class="campaign-label">Vol. 2 - CR7 Legacy</div>
             </div>
         </div>
@@ -331,137 +302,120 @@
     </footer>
 
     <script>
-        // --- 1. LOADING SCREEN LOGIC ---
+        // --- LOADING GATE ---
         const gate = document.getElementById('drop-gate');
         const loadBar = document.getElementById('loading-bar');
-        const loadText = document.getElementById('loading-status');
         const loadPercent = document.getElementById('loading-percentage');
-
         document.body.style.overflow = 'hidden';
-
         let count = 0;
         let loadInterval = setInterval(() => {
             count += Math.floor(Math.random() * 5) + 2; 
             if(count >= 100) {
                 count = 100; clearInterval(loadInterval);
                 loadPercent.innerText = `[ 100% ]`; loadBar.style.width = "100%";
-                loadText.innerText = "ACCESS GRANTED"; loadText.style.color = "var(--accent)";
                 setTimeout(() => { gate.classList.add('unlocked'); document.body.style.overflow = 'auto'; }, 800); 
             } else {
                 loadPercent.innerText = `[ ${count}% ]`; loadBar.style.width = count + "%";
-                if(count % 3 === 0) loadText.innerText = "ESTABLISHING SECURE CONNECTION...";
-                else if (count % 5 === 0) loadText.innerText = "DECRYPTING ASSETS...";
             }
         }, 50);
 
-        // --- 2. CUSTOM CURSOR PHYSICS ---
+        // --- CUSTOM CURSOR ---
         const cursor = document.getElementById('cursor');
-        let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2;
-        let cursorX = mouseX; let cursorY = mouseY;
-
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, cursorX = mouseX, cursorY = mouseY;
         document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-
         function renderCursor() {
             cursorX += (mouseX - cursorX) * 0.2; cursorY += (mouseY - cursorY) * 0.2;
             cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
             requestAnimationFrame(renderCursor);
         }
         renderCursor();
-
-        const hoverTargets = document.querySelectorAll('.hover-target');
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-            target.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        document.querySelectorAll('.hover-target').forEach(t => {
+            t.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            t.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
         });
-
-        // --- 3. THE 3D PARALLAX ENGINE ---
-        const cards = document.querySelectorAll('.product-card');
-        
-        cards.forEach(card => {
-            const glare = card.querySelector('.glare');
-            
-            card.addEventListener('mousemove', (e) => {
-                if (window.innerWidth <= 900) return; 
-
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top; 
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -15; 
-                const rotateY = ((x - centerX) / centerX) * 15;
-                
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                
-                if(glare) {
-                    glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15), transparent 50%)`;
-                }
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                if(glare) glare.style.background = `transparent`;
-            });
-        });
-
-        // --- 4. CAMPAIGN VIDEO PLAY (HOVER ON DESKTOP, AUTOPLAY ON MOBILE) ---
-        const campaignBlocks = document.querySelectorAll('.campaign-block');
-        
-        const vidObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const vid = entry.target.querySelector('video');
-                if(vid && window.innerWidth <= 900) {
-                    if(entry.isIntersecting) {
-                        vid.play().catch(err => console.log("Autoplay blocked:", err));
-                    } else {
-                        vid.pause();
-                    }
-                }
-            });
-        }, { threshold: 0.3 }); 
-
-        campaignBlocks.forEach(block => {
-            const vid = block.querySelector('video');
-            if(vid) {
-                block.addEventListener('mouseenter', () => { 
-                    if(window.innerWidth > 900) vid.play(); 
-                });
-                block.addEventListener('mouseleave', () => { 
-                    if(window.innerWidth > 900) { vid.pause(); vid.currentTime = 0; } 
-                });
-                vidObserver.observe(block);
-            }
-        });
-
-        // --- 5. MAGNETIC BUTTONS ---
-        const magneticBtns = document.querySelectorAll('.magnetic-btn');
-        magneticBtns.forEach(btn => {
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
-                const h = rect.width / 2; const v = rect.height / 2;
-                const x = e.clientX - rect.left - h; const y = e.clientY - rect.top - v;
+                const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2;
                 btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
             });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = `translate(0px, 0px)`;
-                btn.style.transition = `transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)`;
-            });
-            btn.addEventListener('mouseenter', () => { btn.style.transition = `none`; });
+            btn.addEventListener('mouseleave', () => btn.style.transform = `translate(0px, 0px)`);
         });
 
-        // --- 6. SCROLL REVEAL PARALLAX ---
-        const scrollElements = document.querySelectorAll('.scroll-reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                    observer.unobserve(entry.target);
-                }
+        // --- SLIDE TO SECURE CHECKOUT DRAWER ---
+        const overlay = document.getElementById('drawer-overlay');
+        const drawer = document.getElementById('checkout-drawer');
+        const drawerTitle = document.getElementById('drawer-title');
+        const drawerPrice = document.getElementById('drawer-price');
+        const track = document.getElementById('slider-track'), thumb = document.getElementById('slider-thumb'), fill = document.getElementById('slider-fill'), sliderText = document.getElementById('slider-text'), sliderSuccess = document.getElementById('slider-success');
+        let isDragging = false, startX = 0, isPurchased = false;
+
+        document.querySelectorAll('.drawer-trigger').forEach(card => {
+            card.addEventListener('click', () => {
+                drawerTitle.innerText = card.getAttribute('data-title');
+                drawerPrice.innerText = card.getAttribute('data-price');
+                overlay.classList.add('active'); drawer.classList.add('active');
+                isPurchased = false; thumb.style.left = '5px'; fill.style.width = '30px'; sliderText.style.opacity = '1'; sliderSuccess.style.opacity = '0'; thumb.style.display = 'flex';
             });
-        }, { threshold: 0.2 });
-        scrollElements.forEach(el => observer.observe(el));
+        });
+        overlay.addEventListener('click', () => { overlay.classList.remove('active'); drawer.classList.remove('active'); });
+
+        function handleDragStart(e) { if (isPurchased) return; isDragging = true; startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; thumb.style.transition = 'none'; fill.style.transition = 'none'; }
+        function handleDragMove(e) {
+            if (!isDragging || isPurchased) return;
+            let currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            let newLeft = Math.max(5, Math.min(currentX - startX + 5, track.offsetWidth - thumb.offsetWidth - 5));
+            thumb.style.left = newLeft + 'px'; fill.style.width = (newLeft + (thumb.offsetWidth/2)) + 'px';
+            sliderText.style.opacity = 1 - (newLeft / (track.offsetWidth - thumb.offsetWidth - 5));
+            if (newLeft >= track.offsetWidth - thumb.offsetWidth - 5) {
+                isPurchased = true; isDragging = false; thumb.style.display = 'none'; fill.style.width = '100%'; fill.style.transition = 'width 0.2s'; sliderSuccess.style.opacity = '1';
+                setTimeout(() => { overlay.classList.remove('active'); drawer.classList.remove('active'); }, 1500);
+            }
+        }
+        function handleDragEnd() { if (!isDragging || isPurchased) return; isDragging = false; thumb.style.transition = 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'; fill.style.transition = 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)'; thumb.style.left = '5px'; fill.style.width = '30px'; sliderText.style.opacity = '1'; }
+        
+        thumb.addEventListener('mousedown', handleDragStart); document.addEventListener('mousemove', handleDragMove); document.addEventListener('mouseup', handleDragEnd);
+        thumb.addEventListener('touchstart', handleDragStart, {passive: false}); document.addEventListener('touchmove', handleDragMove, {passive: false}); document.addEventListener('touchend', handleDragEnd);
+
+        // --- CANVAS SCRATCH-OFF ---
+        const canvas = document.getElementById('scratchCanvas'), ctx = canvas.getContext('2d'), container = document.getElementById('scratch-container');
+        let isScratching = false;
+        function initCanvas() {
+            canvas.width = container.offsetWidth; canvas.height = container.offsetHeight;
+            ctx.fillStyle = '#1a1a1a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.lineWidth = 10; ctx.strokeStyle = '#000000';
+            for(let i = -canvas.height; i < canvas.width; i+= 30) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i + canvas.height, canvas.height); ctx.stroke(); }
+            ctx.fillStyle = '#ffcc00'; ctx.font = 'bold clamp(1.2rem, 4vw, 2rem) Anton'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('SCRATCH TO REVEAL', canvas.width / 2, canvas.height / 2);
+        }
+        window.addEventListener('resize', initCanvas); setTimeout(initCanvas, 100);
+        function scratch(evt) {
+            if (!isScratching) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = (evt.touches ? evt.touches[0].clientX : evt.clientX) - rect.left;
+            const y = (evt.touches ? evt.touches[0].clientY : evt.clientY) - rect.top;
+            ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(x, y, 40, 0, Math.PI * 2, false); ctx.fill();
+        }
+        canvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); cursor.classList.add('scratching'); });
+        canvas.addEventListener('mousemove', scratch); canvas.addEventListener('mouseup', () => { isScratching = false; cursor.classList.remove('scratching'); }); canvas.addEventListener('mouseleave', () => { isScratching = false; cursor.classList.remove('scratching'); });
+        canvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); }, {passive: false}); canvas.addEventListener('touchmove', scratch, {passive: false}); canvas.addEventListener('touchend', () => isScratching = false);
+
+        // --- DESKTOP PARALLAX ENGINE ---
+        document.querySelectorAll('.product-card').forEach(card => {
+            const glare = card.querySelector('.glare');
+            card.addEventListener('mousemove', (e) => {
+                if (window.innerWidth <= 900) return; 
+                const rect = card.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; 
+                card.style.transform = `rotateX(${((y - rect.height / 2) / (rect.height / 2)) * -15}deg) rotateY(${((x - rect.width / 2) / (rect.width / 2)) * 15}deg) scale3d(1.02, 1.02, 1.02)`;
+                if(glare) glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15), transparent 50%)`;
+            });
+            card.addEventListener('mouseleave', () => { card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`; if(glare) glare.style.background = `transparent`; });
+        });
+
+        // --- AUTO CAMPAIGN & SCROLL REVEAL ---
+        const vidObserver = new IntersectionObserver((entries) => { entries.forEach(e => { const v = e.target.querySelector('video'); if(v && window.innerWidth <= 900) { e.isIntersecting ? v.play().catch(()=>{}) : v.pause(); } }); }, { threshold: 0.3 }); 
+        document.querySelectorAll('.campaign-block').forEach(b => { const v = b.querySelector('video'); if(v) { b.addEventListener('mouseenter', () => { if(window.innerWidth > 900) v.play(); }); b.addEventListener('mouseleave', () => { if(window.innerWidth > 900) { v.pause(); v.currentTime = 0; } }); vidObserver.observe(b); } });
+        const scrObserver = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); scrObserver.unobserve(e.target); } }); }, { threshold: 0.2 });
+        document.querySelectorAll('.scroll-reveal').forEach(el => scrObserver.observe(el));
     </script>
 </body>
 </html>
